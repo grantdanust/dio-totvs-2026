@@ -11,3 +11,9 @@ Este projeto demonstra um pipeline ETL simples que extrai nomes de usuários de 
 ## Como executar
 - Instale o Pandas: `pip install pandas` 
 - Execute o script: `python etl_projeto.py`
+
+## Tecnologias Utilizadas:
+
+- Python & Pandas: Manipulação de dados.
+
+- Google Gemini API: Inteligência Artificial Generativa para enriquecimento de dados.

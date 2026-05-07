@@ -1,22 +1,31 @@
 import pandas as pd
+import google.generativeai as genai
+import os
 
-# 1. EXTRACT (Extração)
-print("Iniciando Extração...")
+# CONFIGURAÇÃO DO GEMINI
+# Dica: Substitua 'SUA_CHAVE_AQUI' pela chave que você gerou
+CHAVE_API = "AIzaSyDsN8vfMzvhinBmSeXNk1ygaljaCEqEs3I" 
+genai.configure(api_key=CHAVE_API)
+model = genai.GenerativeModel('gemini-1.5-flash')
+
+# 1. EXTRACT
+print("Extraindo dados...")
 df = pd.read_csv('sdw2023.csv')
-user_ids = df['UserID'].tolist()
-print(f"Usuários encontrados: {df['Nome'].tolist()}")
 
-# 2. TRANSFORM (Transformação)
-print("Transformando...")
-def generate_ai_news(user_name):
-    # Aqui simulamos uma lógica de negócio ou chamada de IA
-    return f"Olá {user_name}, invista no seu futuro com a TOTVS e a DIO!"
+# 2. TRANSFORM (Agora com IA Real!)
+def gerar_mensagem_ia(nome):
+    print(f"Gerando mensagem para: {nome}")
+    prompt = f"Crie uma frase curta e motivacional de boas-vindas para o cliente {nome} que está começando a usar os sistemas da TOTVS. Seja criativo!"
+    try:
+        response = model.generate_content(prompt)
+        return response.text.strip()
+    except Exception as e:
+        return f"Olá {nome}, bem-vindo à evolução tecnológica!"
 
-# Criamos uma nova coluna com a mensagem transformada
-df['News'] = df['Nome'].apply(generate_ai_news)
+print("Iniciando Transformação com Gemini...")
+df['News'] = df['Nome'].apply(gerar_mensagem_ia)
 
-# 3. LOAD (Carga)
-print("Loading...")
-# Salvamos o resultado em um novo arquivo para entrega
+# 3. LOAD
+print("Salvando resultados...")
 df.to_csv('sdw2023_updated.csv', index=False)
-print("Arquivo 'sdw2023_updated.csv' gerado com sucesso!")
+print("Sucesso! Verifique o arquivo 'sdw2023_updated.csv'")
