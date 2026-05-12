@@ -4,7 +4,7 @@ import os
 
 # CONFIGURAÇÃO DO GEMINI
 # Dica: Substitua 'SUA_CHAVE_AQUI' pela chave que você gerou
-CHAVE_API = "AIzaSyDsN8vfMzvhinBmSeXNk1ygaljaCEqEs3I" 
+CHAVE_API = "COLOQUE SUA CHAVE" 
 genai.configure(api_key=CHAVE_API)
 model = genai.GenerativeModel('gemini-1.5-flash')
 
